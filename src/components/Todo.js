@@ -7,7 +7,7 @@ console.log(item)
             <div className="todo">
                 <h3>{item.item}</h3>
             <span>completed: 
-                <input type='checkbox' onClick={() => dispatch({type: "UPDATE_TOGGLE", payload: item})}/>
+                <input type='checkbox' checked={item.completed} onChange={() => dispatch({type: "UPDATE_TOGGLE", payload: item})}/>
                 </span>
             </div>
     )

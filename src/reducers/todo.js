@@ -15,8 +15,7 @@ export const initialState = {
 
       case "CLEAR_COMPLETED":
         return {
-          todos: state.todos.filter(todo =>
-            !todo.completed)
+          todos: state.todos.filter(todo => !todo.completed)
         };
 
       case "UPDATE_TOGGLE":

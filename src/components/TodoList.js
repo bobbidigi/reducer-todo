@@ -24,7 +24,7 @@ const TodoList = () => {
   };
 
   return (
-    <div>
+    <div className="list">
 
       <div className="form-container">
         <button onClick={() => dispatch({type: "CLEAR_COMPLETED"})}>clear completed</button>

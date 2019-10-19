@@ -112,9 +112,11 @@ h4 {
 }
 
 .todo{
+  margin: 0 auto;
   margin-top: 7.5px;
   border: 1px solid salmon;
   border-radius: 5px;
   background: #5f65e9;
   padding-bottom: 20px;
+  width: 60%;
 }

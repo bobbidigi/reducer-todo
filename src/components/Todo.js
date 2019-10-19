@@ -6,9 +6,9 @@ console.log(item)
     return (
             <div className="todo">
                 <h3>{item.item}</h3>
-            {/* <span>completed:  */}
+            <span>completed: 
                 <input type='checkbox' onClick={() => dispatch({type: "UPDATE_TOGGLE", payload: item})}/>
-                {/* </span> */}
+                </span>
             </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from "react";
 import { initialState, reducer } from "../reducers/todo";
-import Todo from './Todo'
+import Todo from './Todo';
 
 const TodoList = () => {
   // still using state for form data since it will never be used outside this component
@@ -18,7 +18,10 @@ const TodoList = () => {
     // we can also use a "payload" in our action, to send some values to the reducer
     // we can call dispatch as many times as we want!
     // note on the payload: we use state.title if newTitle is empty
-    dispatch({ type: "ADD_TODO", payload: newTodo });
+    if(newTodo){
+      dispatch({ type: "ADD_TODO", payload: newTodo });
+    }
+    
     // dispatch({ type: "TOGGLE_EDITING" });
     setNewTodo("");
   };
@@ -40,6 +43,7 @@ const TodoList = () => {
           </form>
       </div>
       
+    
     
         {state.todos.map((item, index)=>{
           return <Todo item={item} dispatch={dispatch} key={index}/>

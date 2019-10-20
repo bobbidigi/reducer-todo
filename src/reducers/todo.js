@@ -19,7 +19,7 @@ export const initialState = {
         };
 
       case "UPDATE_TOGGLE":
-        const filteredTodos = state.todos.map(todo => {
+        const toggleTodos = state.todos.map(todo => {
           if(todo.id === action.payload.id){
             return {...todo,  completed: !todo.completed}
           }else{
@@ -28,13 +28,12 @@ export const initialState = {
         }) 
 
         return {
-          ...state,
-          todos: filteredTodos
+          todos: [...toggleTodos]
         };
 
       case "ADD_TODO":
         return {
-          ...state,
+          // ...state,
            todos:  [...state.todos,  {
             item: action.payload,
             completed: false,

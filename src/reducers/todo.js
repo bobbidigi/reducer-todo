@@ -1,29 +1,38 @@
 // import { stat } from "fs";
 
 // set up some initial values for our state
-export const initialState = {
+const initialState = {
   todos: [
     {item: 'Learn about reducers',
     completed: false,
-    id: 3892987589
-  }]
+    id: 3892987589}
+  ]
 }
   
-  export function reducer(state, action) {
+  export function reducer(state = initialState, action) {
     // basically a long if-statement over the action types
     switch (action.type) {
 
       case "CLEAR_COMPLETED":
+        const newCompletedTodos = state.todos.filter(todo => todo.completed)
         return {
-          todos: state.todos.filter(todo => !todo.completed)
+          ...state,
+          todos: state.todos.filter(todo => !todo.completed),
+          completedTodos: newCompletedTodos
         };
 
       case "UPDATE_TOGGLE":
         const toggleTodos = state.todos.map(todo => {
           if(todo.id === action.payload.id){
-            return {...todo,  completed: !todo.completed}
+            return {
+              ...state,
+              ...todo,  completed: !todo.completed
+            }
           }else{
-            return todo
+            return {
+              ...state,
+              todo
+            }
           }
         }) 
 

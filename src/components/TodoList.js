@@ -1,12 +1,11 @@
-import React, { useState, useReducer } from "react";
-import { initialState, reducer } from "../reducers/todo";
+import React, { useState } from "react";
+import { connect } from 'react-redux';
 import Todo from './Todo';
 
-const TodoList = () => {
+const TodoList = (props) => {
   // still using state for form data since it will never be used outside this component
   const [newTodo, setNewTodo] = useState();
-  // this hook will hook our state up to our reducer and take care of everything
-  const [state, dispatch] = useReducer(reducer, initialState);
+
 
   const handleChanges = e => {
     setNewTodo(e.target.value);
@@ -17,25 +16,25 @@ const TodoList = () => {
     // empty the form after it submits
     // we can also use a "payload" in our action, to send some values to the reducer
     // we can call dispatch as many times as we want!
-    // note on the payload: we use state.title if newTitle is empty
+    // note on the payload: we use state.newTodo if newTodo is empty
     if(newTodo){
-      dispatch({ type: "ADD_TODO", payload: newTodo });
+      props.dispatch({ type: "ADD_TODO", payload: newTodo });
     }
     
-    // dispatch({ type: "TOGGLE_EDITING" });
     setNewTodo("");
   };
 
+console.log('props', props)
   return (
-    <div className="list">
+    <div className="list-container">
 
       <div className="form-container">
-        <button onClick={() => dispatch({type: "CLEAR_COMPLETED"})}>clear completed</button>
+        <button onClick={() => props.dispatch({type: "CLEAR_COMPLETED"})}>clear completed</button>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="newTodo"
-              placeholder={state.item}
+              placeholder={props.item}
               value={newTodo}
               onChange={handleChanges}
             />
@@ -43,15 +42,26 @@ const TodoList = () => {
           </form>
       </div>
       
-    
-    
-        {state.todos.map((item, index)=>{
-          return <Todo item={item} dispatch={dispatch} key={index}/>
-        })}
+    <div className="list-row">
+        <div className="list">
+          <h1>Todos</h1>
+          {props.todos.map((item, index)=>{
+            return <Todo item={item} dispatch={props.dispatch} key={index}/>
+          })}
+        </div>
+
+    </div>
         
         
     </div>
   );
 };
 
-export default TodoList;
+function mapStateToProps(state){
+  return {
+    todos: state.todos,
+    dispatch: state.dispatch
+  } 
+}
+
+export default connect(mapStateToProps)(TodoList);
